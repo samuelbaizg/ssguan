@@ -1,0 +1,80 @@
+<div class="post-status pull-left" id="taskSaveStatusDiv"
+	ds-status="d?ha=savetask,d?ha=deletetask" ></div>
+<div class="pull-right icon-btngroup">
+	<i class="fa fa-comment-o fa-2x icon-btn" ng-click="newTaskComment()"
+		ng-hide="activeTask.key == '' || activeTask.isTrashed || taskEditable"
+		title="{{'task_action_addtaskcomment' |
+		translate}}">&nbsp;</i> <i
+		class="fa fa-edit fa-2x icon-btn"
+		title="{{'core_action_update' |
+		translate}}"
+		ng-click="editTask(true)"
+		ng-hide="activeTask.isTrashed || taskEditable">&nbsp;</i> <i
+		class="fa fa-save fa-2x icon-btn" ng-click="saveTask()"
+		ng-hide="activeTask.isTrashed || !taskEditable"
+		title="{{'core_action_save' |
+		translate}}">&nbsp;</i> <i
+		class="fa fa-undo fa-2x icon-btn" ng-click="cancelSaveTask()"
+		ng-hide="activeTask.isTrashed || !taskEditable"
+		title="{{'core_action_cancel' |
+		translate}}">&nbsp;</i> <i
+		class="fa fa-remove fa-2x icon-btn"
+		title="{{'core_action_delete' |
+		translate}}"
+		ng-click="deleteTask()"
+		ng-hide="activeTask.key == '' || activeTask.isTrashed || taskEditable">&nbsp;</i>
+
+
+	<button type="button" id="recoverTaskBtn" class="btn btn-primary"
+		data-toggle="dropdown" ng-click="recoverTask()"
+		ng-hide="!activeTask.isTrashed">
+		<span class="fa fa-book">&nbsp;</span>{{'task_action_recovertask' |
+		translate}}
+	</button>
+	<button type="button" id="deletePermanentTaskBtn"
+		class="btn btn-primary margin-left-10"
+		ng-click="permanentDeleteTask()" ng-hide="!activeTask.isTrashed">
+		<span class="fa fa-remove">&nbsp;</span>{{'task_action_permanentdelete'
+		| translate}}
+	</button>
+</div>
+
+
+<div class="modal fade taskcommentedit" role="dialog" aria-hidden="true"
+	id="taskCommentEditDialog" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				</button>
+				<h4 class="modal-title">
+					<span ng-if="activeTask.key == ''">{{'core_action_create'|
+						translate}}</span><span ng-if="activeTaskComment.key">{{'core_action_update'|
+						translate}}</span>{{'task_label_taskcomment' | translate}}
+				</h4>
+			</div>
+			<div class="modal-body">
+				<div id="taskCommentEditor" bootstrap-wysiwyg
+					ng-model="activeTaskComment.tcContent"
+					language="{{loginUser.preferredLanguage}}"
+					toolbar="hidden-xs hidden-sm" justifyfull="false"
+					autosave="saveTaskComment(true)"></div>
+
+			</div>
+			<div class="modal-footer">
+				<div class="post-status pull-left" id="taskCommentSaveStatusDiv"
+					ds-status="d?ha=savetaskcomment" ></div>
+				<div class="pull-right">
+					<button type="button" class="btn btn-default float-left"
+						data-dismiss="modal">{{'core_action_close' | translate}}</button>
+					<button type="button" class="btn btn-primary"
+						ng-click="saveTaskComment()">
+						<span class="fa fa-save">&nbsp;</span>{{'core_action_save' |
+						translate}}
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

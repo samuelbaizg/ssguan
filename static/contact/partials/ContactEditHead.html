@@ -1,0 +1,128 @@
+<div class="post-status pull-left"
+	ds-status="d?ha=savecontact,d?ha=deletecontact"></div>
+
+<div class="pull-right icon-btngroup"
+	ng-show="activeContact.key == null || activeContact.creatorKey == loginUser.userKey">
+
+	<i class="fa fa-coffee fa-2x icon-btn" ng-click="newContactLeave()"
+		ng-hide="activeContact.key == '' || activeContact.isTrashed || contactEditable"
+		title="{{'cont_action_addcotactleave' |
+		translate}}">&nbsp;</i> <i
+		class="fa fa-edit fa-2x icon-btn"
+		title="{{'core_action_update' |
+		translate}}"
+		ng-click="editContact(true)"
+		ng-hide="activeContact.isTrashed || contactEditable">&nbsp;</i> <i
+		class="fa fa-save fa-2x icon-btn" ng-click="saveContact()"
+		ng-hide="activeContact.isTrashed || !contactEditable"
+		title="{{'core_action_save' |
+		translate}}">&nbsp;</i> <i
+		class="fa fa-undo fa-2x icon-btn" ng-click="cancelSaveContact()"
+		ng-hide="activeContact.isTrashed || !contactEditable"
+		title="{{'core_action_cancel' |
+		translate}}">&nbsp;</i> <i
+		class="fa fa-remove fa-2x icon-btn"
+		title="{{'core_action_delete' |
+		translate}}"
+		ng-click="deleteContact()"
+		ng-hide="activeContact.key == '' || activeContact.isTrashed || contactEditable">&nbsp;</i>
+
+	<button type="button" id="recoverContactBtn"
+		class="btn btn-primary btn-sm" data-toggle="dropdown"
+		ng-click="recoverContact()" ng-hide="!activeContact.isTrashed">
+		<span class="fa fa-book">&nbsp;</span>{{'cont_action_recovercontact' |
+		translate}}
+	</button>
+	<button type="button" id="deletePermanentContactBtn"
+		class="btn btn-primary margin-left-10 btn-sm"
+		ng-click="permanentDeleteContact()" ng-hide="!activeContact.isTrashed">
+		<span class="fa fa-remove">&nbsp;</span>{{'cont_action_permanentdelete'
+		| translate}}
+	</button>
+
+</div>
+
+<div class="pull-right"
+	ng-show="activeContact.key != null && activeContact.creatorKey != loginUser.userKey">
+	<h4>
+		<i class="fa fa-user"></i>{{activeContact.creatorDisplayName}}{{'core_label_share'
+		| translate}}
+	</h4>
+</div>
+
+<div class="modal fade contactleaveedit" role="dialog"
+	aria-hidden="true" id="contactLeaveEditDialog" data-backdrop="static"
+	data-keyboard="false">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				</button>
+				<h4 class="modal-title">
+					<span ng-if="activeTask.key == ''">{{'core_action_create'|
+						translate}}</span><span ng-if="contactleave.key">{{'core_action_update'|
+						translate}}</span>{{'cont_label_contactleave' | translate}}
+				</h4>
+			</div>
+			<div class="modal-body">
+				<div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+					<div class="input-group">
+						<label class="input-group-addon">{{'cont_label_leavetypecode'
+							| translate}}</label> <select ng-model="activeContactLeave.leaveTypeCode"
+							ng-options="name as value for (name, value) in envVar.LEAVETYPE_OPTIONS"
+							class="form-control"></select>
+					</div>
+					<div class="input-group input-date input-append date"
+						format="{{loginUser.dateFormat}}"
+						ng-model="activeContactLeave.leaveStartdate"
+						bootstrap-datetimepicker="" picktime="false"
+						end-model="activeContactLeave.leaveFinishdate">
+						<label class="input-group-addon">{{'cont_label_leavestartdate'
+							| translate}}</label> <input type="text" class="form-control"
+							name="leaveStartdate"> <label
+							class="input-group-addon add-on"> <i
+							data-date-icon="glyphicon glyphicon-calendar"> </i>
+						</label>
+					</div>
+					<div class="input-group input-date input-append date"
+						format="{{loginUser.dateFormat}}"
+						ng-model="activeContactLeave.leaveFinishdate"
+						bootstrap-datetimepicker="" picktime="false">
+						<label class="input-group-addon">{{'cont_label_leavefinishdate'
+							| translate}}</label> <input type="text" class="form-control"
+							name="leaveFinishdate"> <label
+							class="input-group-addon add-on"> <i
+							data-date-icon="glyphicon glyphicon-calendar"> </i>
+						</label>
+					</div>
+					<div class="input-group">
+						<label class="input-group-addon">{{'cont_label_leavedays'
+							| translate}}</label> <input type="text" class="form-control"
+							name="leaveDays" ng-model="activeContactLeave.leaveDays">
+					</div>
+					<div class="input-group">
+						<label class="input-group-addon">{{'cont_label_leavecomment'
+							| translate}}</label>
+						<textarea class="form-control" name="leaveComment"
+							ng-model="activeContactLeave.leaveComment"></textarea>
+					</div>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<div class="post-status pull-left" id="contactLeaveSaveStatusDiv"
+					ds-status="d?ha=savecontactleave"></div>
+				<div class="pull-right">
+					<button type="button" class="btn btn-default float-left"
+						data-dismiss="modal">{{'core_action_close' | translate}}</button>
+					<button type="button" class="btn btn-primary"
+						ng-click="saveContactLeave()">
+						<span class="fa fa-save">&nbsp;</span>{{'core_action_save' |
+						translate}}
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

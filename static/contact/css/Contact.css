@@ -1,0 +1,101 @@
+.contactlist-body {
+	
+}
+
+.contactlist-body .contactcompany {
+	font-size: 75%;
+	margin-top: 2px;
+	font-style: italic;
+}
+
+.groupedit {
+	
+}
+
+.contactedit {
+	
+}
+
+#contactEditorCol1 {
+	padding-left: 0px;
+}
+
+#contactEditorCol2 {
+	padding-right: 0px;
+}
+
+#remarkArea {
+	height: 112px;
+}
+
+.contactedit .checkbox-inline {
+	margin-right: 10px;
+}
+
+.contactedit .input-group-addon {
+	width: 95px;
+}
+
+.contactedit div.input-group {
+	margin: 5px 0px 5px 0px;
+	width: 98%;
+}
+
+.contactedit fieldset.contactname-fieldset {
+	border: 0px;
+}
+
+.contactedit div.contactname-fixed {
+	margin-bottom: 0px;
+}
+
+.contactedit .add-on {
+	width: 20px !important;
+}
+
+.contactgroupedit .input-group-addon {
+	width: 125px;
+}
+
+.contactgroupedit label.add-on {
+	width: 20px !important;
+}
+
+.contactedit .contactleaves {
+	margin-top: 10px;
+}
+
+.contactedit .contactleaves .tab-pane>.list-group>.list-group-item {
+	border-radius: 0px !important;
+	border-left: 0px;
+	border-right: 0px;
+}
+
+.contactedit .contactleaves .tab-pane>.list-group>.list-group-item:first-child
+	{
+	border-top: 0px;
+}
+
+.contactedit .contactleaves .contactleaveaction {
+	min-width: 95px;
+}
+
+.contactedit .contactleaveshead {
+	font-size: 100%;
+	margin-top: 2px;
+	border-bottom: solid 1px #ddd;
+}
+
+.contactleaveedit {
+	
+}
+
+.contactleaveedit .input-group {
+	margin-bottom: 10px;
+}
+
+.contactleaves .tab-pane {
+	border: 1px solid #ddd;
+	border-top: 0px;
+	padding: 0 10px 0 10px;
+}

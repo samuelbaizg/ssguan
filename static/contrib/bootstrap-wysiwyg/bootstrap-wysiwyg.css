@@ -1,0 +1,45 @@
+.bootstrap-wysiwyg {
+	background-color: #fff;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+.bootstrap-wysiwyg-default {
+	color: #333;
+	border-color: #ddd;
+}
+
+.bootstrap-wysiwyg-toolbar {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	border-bottom: 1px solid transparent;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	padding: 3px 3px 3px 0px
+}
+
+.bootstrap-wysiwyg>.btn-toolbar {
+	margin-left: 0px;
+}
+
+.bootstrap-wysiwyg-editor {
+	box-sizing: content-box;
+	overflow: auto;
+	outline: none;
+	min-height: 200px;
+	height: 100%;
+	padding: 10px;
+}
+
+.bootstrap-wysiwyg-default>.bootstrap-wysiwyg-toolbar {
+	color: #333;
+	background-color: #f5f5f5;
+	border-color: #ddd;
+}
+
+.bootstrap-wysiwyg-toolbar .dropdown-menu a {
+	cursor: pointer;
+}

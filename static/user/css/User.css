@@ -1,0 +1,49 @@
+.user-login {
+	margin-left: 10px;
+	top: 40px;
+}
+
+.user-login input[type='text'], .user-login input[type='email'],
+	.user-login input[type='password'] {
+	width: 250px;
+}
+
+.signup-link {
+	float: right;
+	margin-right: 20px;
+	padding-top: 15px;
+}
+
+.user-changepwd {
+	margin-left: 10px;
+}
+
+.user-changepwd  input[type='password'] {
+	width: 250px;
+}
+
+.user-login .usersignupbar {
+	padding-top: 15px;
+}
+
+.usersignup label.input-group-addon {
+	width: 100px;
+}
+
+.usersignup div.input-group {
+	width: 100%;
+}
+
+.settingsedit-body {
+	
+}
+
+.settingsedit-body .input-group {
+	margin-bottom: 10px;
+}
+
+.setcalendarlist-body .input-group {
+	width: 98%;
+	margin-bottom: 10px;
+}
+

@@ -1,0 +1,278 @@
+<div class="wscol-body taskedit">
+	<div>
+		<div class="task-editor-row">
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+				<div class="input-group">
+					<label class="input-group-addon">{{'task_label_tasktypecode'
+						| translate}}</label> <select ng-model="activeTask.taskTypeCode"
+						ng-options="name as value for (name, value) in envVar.TASKTYPE_OPTIONS"
+						ng-change="autoSaveTask($event)" class="form-control"
+						ng-disabled="!taskEditable"></select>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+				<div class="input-group">
+					<label class="input-group-addon input-group-addon-wide">{{'task_label_storypoints'
+						| translate}}</label> <select ng-model="activeTask.storyPoints"
+						ng-change="autoSaveTask($event)" class="form-control"
+						ng-options="key as text for (key,text) in envVar.STORY_POINTS_OPTIONS"
+						ng-disabled="!taskEditable"></select>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+				<div class="input-group">
+					<label class="input-group-addon input-group-addon-wide">{{'task_label_worksheet'
+						| translate}}</label> <select ng-model="activeTask.worksheetKey"
+						ng-options="worksheet.key as worksheet.worksheetName group by worksheet.creatorDisplayName for worksheet in worksheets | filter:{key:'!-100'}"
+						ng-disabled="!taskEditable" class="form-control"
+						ng-change="worksheetChange(true)"></select>
+				</div>
+			</div>
+		</div>
+		<div class="task-editor-row">
+			<div class="input-group">
+				<label class="input-group-addon">{{'task_label_tasksubject'
+					| translate}}</label> <input type="text" class="form-control"
+					id="taskSubjectTxt" name="taskSubject"
+					ng-model="activeTask.taskSubject" ng-readonly="!taskEditable"
+					ng-keyup="autoSaveTask($event)" />
+			</div>
+		</div>
+		<div class="task-editor-row">
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+				<div class="input-group">
+					<label class="input-group-addon">{{'task_label_taskprioritycode'
+						| translate}}</label> <select ng-model="activeTask.taskPriorityCode"
+						ng-options="name as value for (name, value) in envVar.TASKPRIORITY_OPTIONS"
+						ng-change="autoSaveTask($event)" class="form-control"
+						ng-disabled="!taskEditable"></select>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+				<div class="input-group input-datetime date input-append"
+					bootstrap-datetimepicker="" ng-model="activeTask.dueStartdate"
+					format="{{loginUser.dateFormat}}" picktime="false"
+					ng-change="autoSaveTask($event)"
+					end-model="activeTask.dueFinishdate">
+					<label class="input-group-addon">{{'task_label_shortduestartdate'
+						| translate}}</label> <input type="text" class="form-control add-on"
+						ng-readonly="!taskEditable" ng-disabled="!taskEditable"> <label
+						class="input-group-addon add-on" ng-hide="!taskEditable">
+						<i data-time-icon="glyphicon glyphicon-time"
+						data-date-icon="glyphicon glyphicon-calendar"> </i>
+					</label>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+				<div class="input-group input-datetime date input-append"
+					bootstrap-datetimepicker="" ng-model="activeTask.dueFinishdate"
+					format="{{loginUser.dateFormat}}" picktime="false"
+					ng-change="autoSaveTask($event)">
+					<label class="input-group-addon">{{'task_label_shortduefinishdate'
+						| translate}}</label> <input type="text" class="form-control add-on"
+						name="dueFinishdate" id="dueFinishdateTxt"
+						ng-readonly="!taskEditable" ng-disabled="!taskEditable"><label
+						class="input-group-addon add-on" ng-hide="!taskEditable">
+						<i data-time-icon="glyphicon glyphicon-time"
+						data-date-icon="glyphicon glyphicon-calendar"> </i>
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="task-editor-row"
+			ng-show="components.length>0 || versions.length>0">
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+				<div class="input-group">
+					<label class="input-group-addon">{{'task_label_components'|translate}}</label>
+					<select ng-model="activeTask.componentKeys"
+						class="form-control multipleselect" ng-disabled="!taskEditable"
+						multiple id="componentSelt">
+						<option ng-repeat="component in components"
+							value="{{component.key}}"
+							ng-selected="activeTask.componentKeys.indexOf(component.key)>-1">{{component.componentName}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+				<div class="input-group">
+					<label class="input-group-addon input-group-addon-wide">{{'task_label_affectedversions'
+						| translate}}</label> <select ng-model="activeTask.affectedVersionKeys"
+						class="form-control multipleselect" ng-disabled="!taskEditable"
+						multiple id="affectedVersionSelt">
+						<option ng-repeat="version in versions" value="{{version.key}}"
+							ng-selected="activeTask.affectedVersionKeys.indexOf(version.key)>-1">{{version.versionName}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+				<div class="input-group">
+					<label class="input-group-addon input-group-addon-wide">{{'task_label_fixedversions'
+						| translate}} </label> <select ng-model="activeTask.fixedVersionKeys"
+						class="form-control multipleselect" ng-disabled="!taskEditable"
+						multiple id="fixedVersionSelt"><option
+							ng-repeat="version in versions" value="{{version.key}}"
+							ng-selected="activeTask.fixedVersionKeys.indexOf(version.key)>-1">{{version.versionName}}</option></select>
+				</div>
+			</div>
+		</div>
+
+		<div class="task-editor-row">
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+				<div class="input-group">
+					<label class="input-group-addon">{{'task_label_taskstatuscode'|translate}}</label>
+					<select ng-model="activeTask.taskStatusCode"
+						ng-options="name as value for (name, value) in envVar.TASKSTATUS_OPTIONS"
+						ng-change="taskStatusChange()" class="form-control"
+						ng-disabled="!taskEditable"></select>
+				</div>
+			</div>
+
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+				<div class="input-group">
+					<label class="input-group-addon input-group-addon-wide">{{'task_label_shortprogress'
+						| translate}}</label> <input type="text" class="form-control"
+						name="actualProgress" ng-model="activeTask.actualProgress"
+						ng-readonly="!taskEditable" ng-keyup="autoSaveTask($event)"
+						id="actualProgressTxt"> <label
+						class="input-group-addon planprogress"
+						title="{{'task_label_planprogresstips'|translate}}" tooltip>{{activeTask.planProgress}}</label>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+				<div class="input-group">
+					<label class="input-group-addon input-group-addon-wide">{{'task_label_taskassigneekey'
+						| translate}}<i class="fa fa-question-circle" tooltip
+						title="{{'task_label_assigneetip' | translate}}"></i>
+					</label> <select class="form-control" ng-disabled="!taskEditable"
+						ng-model="activeTask.taskAssigneeKey"
+						ng-change="autoSaveTask($event)" id="assigneeSelt"><option
+							value="">{{'core_label_notselected' | translate}}</option>
+						<option ng-repeat="contact in contacts" value="{{contact.key}}"
+							ng-selected="activeTask.taskAssigneeKey == contact.key">{{contact.contactName}}</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div id="taskEditor" bootstrap-wysiwyg
+			ng-model="activeTask.taskDescription"
+			language="{{loginUser.preferredLanguage}}"
+			readonly="{{!taskEditable}}" toolbar="hidden-xs hidden-sm"
+			autosave="saveTask(true)" height-adjustment="100%"
+			ng-show="activeTask.taskDescription != null || taskEditable"
+			class="margin-bottom-5"></div>
+
+		<div class="task-editor-row" ng-hide="taskEditable">
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+				<div class="input-group">
+					<label class="input-group-addon">{{'core_label_id'|translate}}</label>
+					<input ng-model="activeTask.key" type="text" class="form-control"
+						ng-disabled="true" />
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+				<div class="input-group">
+					<label class="input-group-addon">{{'user_label_creatorkey'|translate}}</label>
+					<input ng-model="activeTask.creatorDisplayName" type="text"
+						class="form-control" ng-disabled="true" />
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+				<div class="input-group">
+					<label class="input-group-addon input-group-addon-wide">{{'core_label_createdtime'
+						| translate}}</label> <input ng-model="activeTask.createdTime" type="text"
+						class="form-control" ng-disabled="true" />
+				</div>
+			</div>
+		</div>
+
+		<div class="task-editor-row" ng-hide="taskEditable">
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+				<div class="input-group">
+					<label class="input-group-addon input-group-addon-wide">{{'task_label_shortactualstartdate'
+						| translate}}</label> <input ng-model="activeTask.actualStartdate"
+						type="text" class="form-control" ng-disabled="true" />
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+				<div class="input-group">
+					<label class="input-group-addon input-group-addon-wide">{{'task_label_shortactualfinishdate'
+						| translate}} </label> <input ng-model="activeTask.actualFinishdate"
+						type="text" class="form-control" ng-disabled="true" />
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div ng-class="{hide : activeTask.key == ''}" class="taskcomments">
+		<div role="tabpanel">
+			<ul class="nav nav-tabs" role="tablist">
+				<li role="presentation" class="active"><a
+					href="#taskCommentsTab" aria-controls="taskCommentsTab" role="tab"
+					data-toggle="tab">{{'task_label_taskcomment' | translate}}</a></li>
+				<li role="presentation"><a href="#taskChangelogsTab"
+					aria-controls="taskChangelogsTab" role="tab" data-toggle="tab">{{'task_label_changelog'
+						| translate}}</a></li>
+			</ul>
+			<div class="tab-content">
+				<div role="tabpanel" class="tab-pane active" id="taskCommentsTab">
+					<div class="list-group">
+						<span class="list-group-item"
+							ng-repeat="comment in activeTask.taskComments">
+							<p class="taskcommenthead">{{comment.userName}}
+								{{'task_label_addacomment' | translate}} -
+								{{comment.modifiedTime}}</p>
+							<p class="taskcommentaction">
+								<i class="fa fa-edit fa-2x icon-btn"
+									title="{{'core_action_update' | translate}}"
+									ng-click="updateTaskComment(comment)"></i> <i
+									class="fa fa-remove fa-2x icon-btn"
+									title="{{'core_action_delete' | translate}}"
+									ng-click="deleteTaskComment(comment)"></i>
+							</p>
+							<p class="list-group-item-text" ng-bind-html="comment.tcContent">
+							</p>
+						</span>
+					</div>
+					<div ng-show="activeTask.taskComments.length <=0">{{'core_label_norecords'
+						| translate}}</div>
+					<div class="post-status pull-left"
+						ds-status="d?ha=deletetaskcomment" showsuccess="false"
+						showinprogress="false"></div>
+				</div>
+				<div role="tabpanel" class="tab-pane" id="taskChangelogsTab">
+					<div class="list-group">
+						<span class="list-group-item"
+							ng-repeat="mclog in activeTask.mclogs">
+							<p class="taskcommenthead">{{mclog.userDisplayName}}
+								{{'task_label_changetask' | translate}} - {{mclog.changedTime}}</p>
+							<p class="list-group-item-text">
+							<table class="table table-hover">
+								<thead class="hidden-xs hidden-sm">
+									<tr>
+										<th>{{'core_label_fieldname'|translate}}</th>
+										<th>{{'core_label_lastvalue' | translate }}</th>
+										<th>{{'core_label_presentvalue' | translate }}</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="cursor-pointer"
+										ng-repeat="logDetail in mclog.logDetails">
+										<td>{{logDetail.fieldI18nKey|translate}}</td>
+										<td>{{logDetail.lastValue|translate}}</td>
+										<td>{{logDetail.presentValue|translate}}</td>
+									</tr>
+								</tbody>
+							</table>
+							</p>
+
+						</span>
+					</div>
+					<div ng-show="activeTask.mclogs.length <=0">{{'core_label_norecords'
+						| translate}}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

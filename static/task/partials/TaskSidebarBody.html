@@ -1,0 +1,59 @@
+<div class="panel-group" id="myWorksheetsAccordion" role="tablist"
+	aria-multiselectable="true">
+	<div class="panel panel-default">
+		<div class="panel-heading" role="tab" id="myWorksheetsHead">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#myWorksheetsAccordion"
+					href="#myWorksheetsBody" aria-expanded="true"
+					aria-controls="myWorksheetsBody"> <i class="fa fa-tasks">&nbsp;</i>{{'task_label_myworksheets'
+					| translate}}
+				</a> <span class="pull-right cursor-pointer"
+					ng-click="editWorksheet(true)" ng-hide="worksheetEditable">{{'core_action_update'|translate}}</span><span
+					class="pull-right cursor-pointer" ng-click="editWorksheet(false)"
+					ng-hide="!worksheetEditable">{{'core_action_done'|translate}}</span>
+			</h4>
+		</div>
+		<div id="myWorksheetsBody" class="panel-collapse collapse in"
+			role="tabpanel" aria-labelledby="myWorksheetsHead">
+			<div class="panel-body">
+				<a class="list-group-item cursor-pointer"
+					ng-click="worksheetClick(worksheet,$event)"
+					ng-repeat="worksheet in worksheets  | filter : isCreatedBySelf">
+					<i class="fa fa-remove fa-2x"
+					ng-hide="!worksheetEditable || worksheet.key == DEFAULT_WORKSHEET_ID || worksheet.key == ASSIGNED_WORKSHEET_ID || worksheet.key == COMPLETE_WORKSHEET_ID">&nbsp;</i><i
+					ng-class="{'fa fa-share-alt' : worksheet.groupKey != null && worksheet.groupKey != EMPTY_UID, 'fa fa-tasks' : worksheet.key != TRASH_WORKSHEET_ID || worksheet.key == DEFAULT_WORKSHEET_ID || worksheet.key == ASSIGNED_WORKSHEET_ID || worksheet.key == COMPLETE_WORKSHEET_ID, 'fa fa-recycle':worksheet.key == TRASH_WORKSHEET_ID}"
+					ng-show="!worksheetEditable || (worksheetEditable && (worksheet.key == DEFAULT_WORKSHEET_ID || worksheet.key == ASSIGNED_WORKSHEET_ID || worksheet.key == COMPLETE_WORKSHEET_ID))">&nbsp;</i><span>{{worksheet.worksheetName}}</span><span
+					ng-show="worksheet.groupKey != null && worksheet.groupKey != -1"
+					class="ismall">-{{worksheet.groupName}}</span><span class="badge"
+					ng-show="!worksheetEditable || (worksheetEditable && (worksheet.key == DEFAULT_WORKSHEET_ID || worksheet.key == ASSIGNED_WORKSHEET_ID || worksheet.key == COMPLETE_WORKSHEET_ID || worksheet.key == TRASH_WORKSHEET_ID)) ">{{worksheet.taskcount}}</span><i
+					class="fa fa-edit fa-2x pull-right"
+					ng-hide="!worksheetEditable || worksheet.key == TRASH_WORKSHEET_ID || worksheet.key == DEFAULT_WORKSHEET_ID || worksheet.key == ASSIGNED_WORKSHEET_ID || worksheet.key == COMPLETE_WORKSHEET_ID">&nbsp;</i>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading" role="tab" id="sharedWorksheetsHead">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#myWorksheetsAccordion"
+					href="#sharedWorksheetsBody" aria-expanded="true"
+					aria-controls="sharedWorksheetsBody"> <i class="fa fa-tasks">&nbsp;</i>{{'task_label_sharedgroups'
+					| translate}}
+				</a>
+			</h4>
+		</div>
+		<div id="sharedWorksheetsBody" class="panel-collapse collapse in"
+			role="tabpanel" aria-labelledby="sharedWorksheetsHead">
+			<div class="panel-body">
+				<a class="list-group-item cursor-pointer"
+					ng-click="worksheetClick(worksheet,$event)"
+					ng-repeat="worksheet in worksheets | filter : isCreatedByOther"><i
+					class="fa fa-tasks"></i> <span>{{worksheet.worksheetName}}</span><span
+					ng-show="worksheet.groupKey != null && worksheet.groupKey != -1"
+					class="ismall">-{{worksheet.creatorDisplayName}}</span><span
+					class="badge">{{worksheet.taskcount}}</span> </a>
+			</div>
+		</div>
+	</div>
+</div>
+

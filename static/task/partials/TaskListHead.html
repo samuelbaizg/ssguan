@@ -1,0 +1,78 @@
+<div class="pull-left">
+	<h4>
+		<i class="fa fa-tasks">&nbsp;</i><span>{{taskSearchLabel}}</span>
+	</h4>
+</div>
+<div class="icon-btngroup pull-right">
+	<i class="fa fa-refresh fa-2x icon-btn" title="{{searchTitle}}"
+		ng-click="fetchTasks()"></i> <i class="fa fa-search fa-2x icon-btn"
+		title="{{searchTitle}}" ng-click="searchTask()"></i> <i
+		class="fa fa-plus fa-2x icon-btn"
+		title="{{'task_action_addtask' | translate}}" ng-click="newTask()"></i>
+</div>
+
+
+<div class="modal fade tasksearch" tabindex="-1" role="dialog"
+	aria-hidden="true" id="taskSearchDialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				</button>
+				<h4 class="modal-title">
+					<span><i class="fa fa-search">&nbsp;</i>{{'task_label_tasksearch'|
+						translate}}</span>
+				</h4>
+			</div>
+			<div class="modal-body">
+				<div class="shortcut">
+					<a class="cursor-pointer col-xs-6 col-sm-6 col-md-4 col-lg-4"
+						ng-click="shortcutClick('pr=','task_label_highprioritytasks')">{{'task_label_highprioritytasks'
+						| translate}}</a> <a
+						class="cursor-pointer col-xs-6 col-sm-6 col-md-4 col-lg-4"
+						ng-click="shortcutClick('dt=','task_label_asaptasks')">{{'task_label_asaptasks'
+						| translate}}</a> <a
+						class="cursor-pointer col-xs-6 col-sm-6 col-md-4 col-lg-4"
+						ng-click="shortcutClick('dt=','task_label_pipelinetasks', {days:'7'})">{{'task_label_pipelinetasks'
+						| translate:'{days:7}'}}</a> <a
+						class="cursor-pointer col-xs-6 col-sm-6 col-md-4 col-lg-4"
+						ng-click="shortcutClick('dt=','task_label_pipelinetasks', {days:'15'})">{{'task_label_pipelinetasks'
+						| translate:'{days:15}'}}</a> <a
+						class="cursor-pointer col-xs-6 col-sm-6 col-md-4 col-lg-4"
+						ng-click="shortcutClick('dt=','task_label_overduetasks')">{{'task_label_overduetasks'
+						| translate}}</a> <a
+						class="cursor-pointer col-xs-6 col-sm-6 col-md-4 col-lg-4"
+						ng-click="shortcutClick('dt=','task_label_notimelimittasks')">{{'task_label_notimelimittasks'
+						| translate}}</a><a
+						class="cursor-pointer col-xs-6 col-sm-6 col-md-4 col-lg-4"
+						ng-click="shortcutClick('as=','task_label_assignedtasks')">{{'task_label_assignedtasks'
+						| translate}}</a> <a
+						class="cursor-pointer col-xs-6 col-sm-6 col-md-4 col-lg-4"
+						ng-click="shortcutClick('as=','task_label_assignedtometasks')">{{'task_label_assignedtometasks'
+						| translate}}</a> <a
+						class="cursor-pointer col-xs-6 col-sm-6 col-md-4 col-lg-4"
+						ng-click="shortcutClick('st=','task_label_activetasks')">{{'task_label_activetasks'
+						| translate}}</a> <a
+						class="cursor-pointer col-xs-6 col-sm-6 col-md-4 col-lg-4"
+						ng-click="shortcutClick('st=','task_label_completetasks')">{{'task_label_completetasks'
+						| translate}}</a>
+				</div>
+				<div>
+					<input type="text"
+						placeholder="{{'core_label_keyword' | translate}}..."
+						bootstrap-tagsinput="{maxTags:5,maxChars: 20}"
+						ng-model="taskSearchKeywords" submit="submitTaskSearch()"
+						typeahead="{minLength : 1}" tasource="getTaskSearchKeywordHints()">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">{{'core_action_cancel'
+					| translate}}</button>
+				<button type="button" class="btn btn-primary"
+					ng-click="submitTaskSearch()">{{'core_action_ok' |
+					translate}}</button>
+			</div>
+		</div>
+	</div>
+</div>

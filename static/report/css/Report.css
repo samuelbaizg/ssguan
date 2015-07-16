@@ -1,0 +1,49 @@
+.reportsearchcriteria {
+	
+}
+
+.reportsearchcriteria .label-left-fixed {
+	margin: -15px;
+}
+
+.reportsearchcriteria .input-group {
+	margin-bottom: 10px;
+}
+
+.reportsearchcriteria .input-group-addon {
+	width: 100px;
+}
+
+.reportsearchcriteria .add-on {
+	width: 20px !important;
+}
+
+.reportviewbody .report-chart {
+	padding-right: 0px;
+	height: 300px;
+	margin-bottom: 10px;
+}
+
+.reportviewbody .report-data {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.reportviewbody .report-data ul {
+	padding-left: 0px;
+}
+
+.reportviewbody .report-data .sum {
+	background-color: #F9F9F9;
+	font-weight: bold;
+}
+
+.reportviewbody {
+	
+}
+
+.reportviewbody .report-title {
+	text-align: center;
+	padding: 5px 0 5px 0;
+	font-size: 16px;
+}

@@ -1,0 +1,64 @@
+<div>
+	<button class="btn btn-primary col-md-12 col-sm-12 col-lg-12 col-xs-12"
+		type="button" ng-click="updateWorksheet()">
+		<i class="fa fa-plus"
+			title="{{'task_action_addworksheet' | translate}}">&nbsp;</i><span>{{'task_action_addworksheet'
+			| translate}}</span>
+	</button>
+</div>
+
+
+<div class="modal fade worksheetedit" data-backdrop="static"
+	data-keyboard="false" role="dialog" aria-hidden="true"
+	id="worksheetDialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				</button>
+				<h4 class="modal-title">
+					<span ng-if="!updatedWorksheet.key">{{'core_action_create'|
+						translate}}</span><span ng-if="updatedWorksheet.key">{{'core_action_update'|
+						translate}}</span>{{'task_label_worksheet' | translate}}
+				</h4>
+			</div>
+			<div class="modal-body">
+				<form name="worksheetForm" role="form">
+					<div class="form-group has-feedback">
+						<div class="input-group">
+							<label class="input-group-addon">{{'task_label_worksheetname'
+								| translate}}</label> <input type="text" class="form-control"
+								name="worksheetName" ng-model="updatedWorksheet.worksheetName"
+								required placeholder="{{'core_label_required' | translate}}" />
+						</div>
+						<div class="form-control-feedback"
+							ng-show="worksheetForm.worksheetName.$dirty && worksheetForm.worksheetName.$error.required">
+							<p translate="core_error_required"
+								translate-value-label="{{'task_label_worksheetname'|translate}}"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+							<label class="input-group-addon">{{'cont_label_group' |
+								translate}}</label> <select class="form-control"
+								ng-model="updatedWorksheet.groupKey"
+								ng-options="group.key as group.groupName for group in contactGroups">
+								<option value="">{{'core_label_notselected' |
+									translate}}</option>
+							</select>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">{{'core_action_close'
+					| translate}}</button>
+				<button type="button" class="btn btn-primary"
+					ng-click="saveWorksheet()">{{'core_action_save' |
+					translate}}</button>
+			</div>
+		</div>
+	</div>
+</div>
+

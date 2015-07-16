@@ -1,0 +1,315 @@
+<div class="wscol-body user-changepwd container"
+	ng-show="activeAction.key == 'changepassword'">
+	<header class="page-header">
+		<h3>
+			<span class="glyphicon glyphicon-lock"></span>
+			{{'core_action_changepwd'|translate}}
+		</h3>
+	</header>
+	<form name="changePwdForm" class="form-horizontal" role="form">
+		<div class="form-group has-feedback">
+			<label class="col-md-2">{{'core_label_useroldpassword' |
+				translate}}</label>
+			<div class="col-md-8">
+				<input type="password" class="form-control" name="oldPassword"
+					ng-model="password.oldPassword" required />
+				<div class="form-control-feedback"
+					ng-show="changePwdForm.oldPassword.$dirty && changePwdForm.oldPassword.$error.required">
+					<p translate="core_error_required"
+						translate-value-label="{{'core_label_useroldpassword'|translate}}"></p>
+				</div>
+			</div>
+		</div>
+		<div class="form-group has-feedback">
+			<label class="col-md-2">{{'core_label_usernewpassword' |
+				translate}}</label>
+			<div class="col-md-8">
+				<input type="password" class="form-control" name="newPassword"
+					ng-model="password.newPassword" required />
+				<div class="form-control-feedback"
+					ng-show="changePwdForm.newPassword.$dirty && changePwdForm.newPassword.$error.required">
+					<p translate="core_error_required"
+						translate-value-label="{{'core_label_usernewpassword'|translate}}"></p>
+				</div>
+			</div>
+		</div>
+		<div class="form-group has-feedback">
+			<label class="col-md-2">{{'core_label_userdupnewpassword' |
+				translate}}</label>
+			<div class="col-md-8">
+				<input type="password" class="form-control" name="dupPassword"
+					ng-model="password.dupPassword" required />
+				<div class="form-control-feedback"
+					ng-show="changePwdForm.dupPassword.$dirty && changePwdForm.dupPassword.$error.required">
+					<p translate="core_error_required"
+						translate-value-label="{{'core_label_userdupnewpassword'|translate}}"></p>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-3"></label>
+			<div class="col-md-3">
+				<button type="submit" class="btn btn-primary"
+					ng-click="changePassword()"
+					ng-disabled="changePwdForm.$invalid || !changePwdForm.$dirty">{{'core_action_save'
+					| translate}}</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<div class="wscol-body setversionlist-body"
+	ng-show="activeAction.key == 'setversion'">
+	<div class="margin-bottom-10">
+		<select class="form-control" ng-model="activeGroup.key"
+			ng-options="group.key as group.groupName for group in groups"
+			ng-disabled="true">
+		</select>
+	</div>
+	<table class="table table-hover">
+		<thead class="hidden-xs hidden-sm">
+			<tr>
+				<th>{{'cont_label_versionname'|translate}}</th>
+				<th>{{'cont_label_verstartdate'|translate}}</th>
+				<th>{{'cont_label_verfinishdate'|translate}}</th>
+				<th>{{'cont_label_isreleased'|translate}}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="cursor-pointer"
+				ng-class="{active: version.key==activeVersion.key}"
+				ng-click="updateVersion(version,false)"
+				ng-repeat="version in groupVersions">
+				<td>{{version.versionName}}</td>
+				<td>{{version.verStartDate}}</td>
+				<td>{{version.verFinishDate}}</td>
+				<td><span ng-if="version.isReleased">{{'core_label_yes'
+						| translate}}</span><span ng-if="!version.isReleased">{{'core_label_no'
+						| translate}}</span></td>
+
+			</tr>
+		</tbody>
+	</table>
+	<div class="post-status pull-left" ds-status="d?ha=groupversionlist"
+		zerokey=".length"></div>
+</div>
+
+<div class="wscol-body setcomponentlist-body"
+	ng-show="activeAction.key == 'setcomponent'">
+	<div class="margin-bottom-10">
+		<select class="form-control" ng-model="activeGroup.key"
+			ng-options="group.key as group.groupName for group in groups"
+			ng-disabled="true">
+		</select>
+	</div>
+	<table class="table table-hover">
+		<thead class="hidden-xs hidden-sm">
+			<tr>
+				<th>{{'cont_label_componentname'|translate}}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="cursor-pointer"
+				ng-class="{active: component.key==activeComponent.key}"
+				ng-click="updateComponent(component,false)"
+				ng-repeat="component in groupComponents">
+				<td>{{component.componentName}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="post-status pull-left" ds-status="d?ha=groupcomponentlist"
+		zerokey=".length"></div>
+</div>
+
+<div class="wscol-body setcalendarlist-body"
+	ng-show="activeAction.key == 'setcalendar'">
+	<div class="margin-bottom-10">
+		<select class="form-control" ng-model="activeGroup.key"
+			ng-options="group.key as group.groupName for group in groups"
+			ng-disabled="true">
+		</select>
+	</div>
+	<div class="margin-bottom-10">
+		<fieldset>
+			<legend>{{'cont_label_groupperiod'|translate}}</legend>
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+				<div class="input-group input-date input-append date"
+					format="{{loginUser.dateFormat}}"
+					ng-model="activeGroup.groupStartdate" bootstrap-datetimepicker=""
+					picktime="false">
+					<label class="input-group-addon">{{'cont_label_groupstartdate'
+						| translate}}</label> <input type="text" class="form-control"
+						name="groupStartdate"> <label
+						class="input-group-addon add-on"> <i
+						data-date-icon="glyphicon glyphicon-calendar"> </i>
+					</label>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+				<div class="input-group input-date input-append date"
+					format="{{loginUser.dateFormat}}"
+					ng-model="activeGroup.groupFinishdate" bootstrap-datetimepicker=""
+					picktime="false">
+					<label class="input-group-addon">{{'cont_label_groupfinishdate'
+						| translate}}</label> <input type="text" class="form-control"
+						name="groupFinishdate"> <label
+						class="input-group-addon add-on"> <i
+						data-date-icon="glyphicon glyphicon-calendar"> </i>
+					</label>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+				<div class="input-group">
+					<button
+						class="btn btn-primary col-xs-12 col-sm-12 col-md-12 col-lg-12"
+						type="button" ng-click="savePeroid()">
+						<span>{{'core_action_save' |
+							translate}}{{'cont_label_groupperiod' | translate}}</span>
+					</button>
+				</div>
+			</div>
+		</fieldset>
+	</div>
+
+	<div class="margin-bottom-10">
+		<fieldset>
+			<legend>{{'cont_label_workday'|translate}}</legend>
+			<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+				<div class="input-group">
+					<label class="input-group-addon">{{'cont_label_workdaymonday'
+						| translate}}</label> <select class="form-control"
+						ng-model='activeGroup.workdayMonday'
+						ng-options='workday.id as workday.name for workday in workdayOptions'></select>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+				<div class="input-group">
+					<label class="input-group-addon">{{'cont_label_workdaytuesday'
+						| translate}}</label> <select class="form-control"
+						ng-model='activeGroup.workdayTuesday'
+						ng-options='workday.id as workday.name for workday in workdayOptions'></select>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+				<div class="input-group">
+					<label class="input-group-addon">{{'cont_label_workdaywednesday'
+						| translate}}</label> <select class="form-control"
+						ng-model='activeGroup.workdayWednesday'
+						ng-options='workday.id as workday.name for workday in workdayOptions'>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+				<div class="input-group">
+					<label class="input-group-addon">{{'cont_label_workdaythursday'
+						| translate}}</label> <select class="form-control"
+						ng-model='activeGroup.workdayThursday'
+						ng-options='workday.id as workday.name for workday in workdayOptions'>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+				<div class="input-group">
+					<label class="input-group-addon">{{'cont_label_workdayfriday'
+						| translate}}</label> <select class="form-control"
+						ng-model='activeGroup.workdayFriday'
+						ng-options='workday.id as workday.name for workday in workdayOptions'>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+				<div class="input-group">
+					<label class="input-group-addon">{{'cont_label_workdaysaturday'
+						| translate}}</label> <select class="form-control"
+						ng-model='activeGroup.workdaySaturday'
+						ng-options='workday.id as workday.name for workday in workdayOptions'>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+				<div class="input-group">
+					<label class="input-group-addon">{{'cont_label_workdaysunday'
+						| translate}}</label> <select class="form-control"
+						ng-model='activeGroup.workdaySunday'
+						ng-options='workday.id as workday.name for workday in workdayOptions'>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+				<div class="input-group">
+					<button
+						class="btn btn-primary col-xs-12 col-sm-12 col-md-12 col-lg-12"
+						type="button" ng-click="saveWorkday()">
+						<span>{{'core_action_save' |
+							translate}}{{'cont_label_workday' | translate}}</span>
+					</button>
+				</div>
+			</div>
+		</fieldset>
+	</div>
+
+	<div class="margin-bottom-10">
+		<fieldset>
+			<legend>{{'cont_label_exceptionwork'|translate}}</legend>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>{{'cont_label_exceptionname'|translate}}</th>
+						<th>{{'cont_label_expstartdate'|translate}}</th>
+						<th>{{'cont_label_expfinishdate'|translate}}</th>
+						<th>{{'cont_label_iswork'|translate}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="cursor-pointer"
+						ng-class="{active: exception.key==activeException.key}"
+						ng-click="updateException(exception,false)"
+						ng-repeat="exception in groupExceptions">
+						<td>{{exception.exceptionName}}</td>
+						<td>{{exception.expStartDate}}</td>
+						<td>{{exception.expFinishDate}}</td>
+						<td><span ng-if="exception.isWork">{{'core_label_yes'
+								| translate}}</span><span ng-if="!exception.isWork">{{'core_label_no'
+								| translate}}</span></td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="post-status pull-left"
+				ds-status="d?ha=groupexceptionlist" zerokey=".length"></div>
+		</fieldset>
+	</div>
+
+</div>
+
+<div class="wscol-body setresourcelist-body"
+	ng-show="activeAction.key == 'setresource'">
+	<div class="margin-bottom-10">
+		<select class="form-control" ng-model="activeGroup.key"
+			ng-options="group.key as group.groupName for group in groups"
+			ng-disabled="true">
+		</select>
+	</div>
+	<table class="table table-hover">
+		<thead class="hidden-xs hidden-sm">
+			<tr>
+				<th>{{'cont_label_contactkey'|translate}}</th>
+				<th>{{'cont_label_joindate'|translate}}</th>
+				<th>{{'cont_label_quitdate'|translate}}</th>
+				<th>{{'cont_label_contactlevel'|translate}}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="cursor-pointer"
+				ng-class="{active: resource.key==activeResource.key}"
+				ng-click="updateResource(resource,false)"
+				ng-repeat="resource in groupResources">
+				<td>{{resource.contactName}}</td>
+				<td>{{resource.joinDate}}</td>
+				<td>{{resource.quitDate}}</td>
+				<td>{{resource.contactLevel}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="post-status pull-left" ds-status="d?ha=groupresourcelist"
+		zerokey=".length"></div>
+</div>

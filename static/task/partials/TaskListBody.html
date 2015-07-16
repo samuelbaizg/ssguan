@@ -1,0 +1,40 @@
+
+<div class="wscol-body tasklist-body"
+	infinitescroll="fetchTasks(taskPager.page+1, true)">
+	<table class="table table-hover">
+		<thead class="hidden-xs hidden-sm">
+			<tr>
+				<th>{{'core_label_id'|translate}} -
+					{{'task_label_taskprioritycode' | translate }} -
+					{{'task_label_taskstatuscode' | translate }} -
+					{{'task_label_tasksubject' | translate }}</th>
+				<th>{{'task_label_progress' | translate }}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="cursor-pointer"
+				ng-class="{active: task.key==activeTask.key}"
+				ng-click="updateTask(task,false)"
+				ng-repeat="task in taskPager.records">
+				<td class="hidden-xs hidden-sm">{{task.key}} -
+					{{task.taskPriorityCode | translate}} - {{task.taskTypeCode |
+					translate}} - {{task.taskSubject}}<span class="ismall"
+					ng-show="isCreatedByOther(task)"> -
+						{{task.creatorDisplayName}}</span>
+				</td>
+				<td class="hidden-xs hidden-sm">{{task.taskStatusCode|
+					translate}}({{task.actualProgress}}% / {{task.planProgress}})</td>
+				<td class="hidden-md hidden-lg">
+					<h4 class="list-group-item-heading">{{task.taskSubject}}</h4>
+					<p class="taskstatus">{{task.taskStatusCode |
+						translate}}({{task.actualProgress}}% / {{task.planProgress}})</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="post-status pull-left" ds-status="d?ha=tasklist"
+		showsuccess="true" zerokey="count"></div>
+
+	<div class="post-status pull-left" ds-status="d?ha=worksheetlist"
+		showsuccess="false"></div>
+</div>

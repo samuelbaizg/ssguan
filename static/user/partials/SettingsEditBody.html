@@ -1,0 +1,189 @@
+<div class="wscol-body settingsedit-body"
+	ng-show="activeAction.key == 'setversion'">
+	<div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+		<div class="input-group">
+			<label class="input-group-addon">{{'cont_label_versionname' |
+				translate}}</label> <input type="text" class="form-control"
+				name="versionName" id="versionNameTxt"
+				ng-model="activeVersion.versionName" ng-readonly="!versionEditable"
+				ng-keyup="autoSaveVersion($event)">
+		</div>
+		<div class="input-group input-date input-append date"
+			format="{{loginUser.dateFormat}}"
+			ng-model="activeVersion.verStartDate" bootstrap-datetimepicker=""
+			picktime="false" ng-change="autoSaveVersion($event)">
+			<label class="input-group-addon">{{'cont_label_verstartdate'
+				| translate}}</label> <input type="text" class="form-control"
+				name="verStartDate" ng-readonly="!versionEditable"
+				ng-disabled="!versionEditable"> <label
+				class="input-group-addon add-on" ng-hide="!versionEditable">
+				<i data-date-icon="glyphicon glyphicon-calendar"> </i>
+			</label>
+		</div>
+		<div class="input-group input-date input-append date"
+			format="{{loginUser.dateFormat}}"
+			ng-model="activeVersion.verFinishDate" bootstrap-datetimepicker=""
+			picktime="false" ng-change="autoSaveVersion($event)">
+			<label class="input-group-addon">{{'cont_label_verfinishdate'
+				| translate}}</label> <input type="text" class="form-control"
+				name="verFinishDate" ng-readonly="!versionEditable"
+				ng-disabled="!versionEditable"> <label
+				class="input-group-addon add-on" ng-hide="!versionEditable">
+				<i data-date-icon="glyphicon glyphicon-calendar"> </i>
+			</label>
+		</div>
+		<div class="input-group">
+			<label class="input-group-addon">{{'cont_label_isreleased' |
+				translate}}</label>
+			<buttons-radio class="btn-group" data-toggle="buttons-radio"
+				model='activeVersion.isReleased' suffix="default" idProperty="id"
+				nameProperty="name" options='yesNoOptions'></buttons-radio>
+		</div>
+		<div class="input-group input-date input-append date"
+			format="{{loginUser.dateFormat}}"
+			ng-model="activeVersion.releaseDate" bootstrap-datetimepicker=""
+			picktime="false" ng-change="autoSaveVersion($event)">
+			<label class="input-group-addon">{{'cont_label_releasedate' |
+				translate}}</label> <input type="text" class="form-control"
+				name="releaseDate" ng-readonly="!versionEditable"
+				ng-disabled="!versionEditable"> <label
+				class="input-group-addon add-on" ng-hide="!versionEditable">
+				<i data-date-icon="glyphicon glyphicon-calendar"> </i>
+			</label>
+		</div>
+		<div class="input-group">
+			<label class="input-group-addon">{{'cont_label_verdescription'
+				| translate}}</label>
+			<textarea class="form-control" name="verDescription"
+				ng-model="activeVersion.verDescription"
+				ng-readonly="!versionEditable" ng-keyup="autoSaveVersion($event)"></textarea>
+		</div>
+	</div>
+</div>
+
+<div class="wscol-body settingsedit-body"
+	ng-show="activeAction.key == 'setcomponent'">
+	<div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+		<div class="input-group">
+			<label class="input-group-addon">{{'cont_label_componentname'
+				| translate}}</label> <input type="text" class="form-control"
+				name="componentName" id="componentNameTxt"
+				ng-model="activeComponent.componentName"
+				ng-readonly="!componentEditable"
+				ng-keyup="autoSaveComponent($event)">
+		</div>
+		<div class="input-group">
+			<label class="input-group-addon">{{'cont_label_compodescription'
+				| translate}}</label>
+			<textarea class="form-control" name="verDescription"
+				ng-model="activeComponent.compoDescription"
+				ng-readonly="!componentEditable"
+				ng-keyup="autoSaveComponent($event)"></textarea>
+		</div>
+	</div>
+</div>
+
+<div class="wscol-body settingsedit-body"
+	ng-show="activeAction.key == 'setcalendar'">
+	<div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+		<div class="input-group">
+			<label class="input-group-addon">{{'cont_label_exceptionname'
+				| translate}}</label> <input type="text" class="form-control"
+				name="exceptionName" id="exceptionNameTxt"
+				ng-model="activeException.exceptionName"
+				ng-readonly="!exceptionEditable"
+				ng-keyup="autoSaveException($event)">
+		</div>
+		<div class="input-group input-date input-append date"
+			format="{{loginUser.dateFormat}}"
+			ng-model="activeException.expStartDate" bootstrap-datetimepicker=""
+			picktime="false" ng-change="autoSaveException($event)"
+			end-model="activeException.expFinishDate">
+			<label class="input-group-addon">{{'cont_label_expstartdate'
+				| translate}}</label> <input type="text" class="form-control"
+				name="expStartDate" ng-readonly="!exceptionEditable"
+				ng-disabled="!exceptionEditable"> <label
+				class="input-group-addon add-on" ng-hide="!exceptionEditable">
+				<i data-date-icon="glyphicon glyphicon-calendar"> </i>
+			</label>
+		</div>
+		<div class="input-group input-date input-append date"
+			format="{{loginUser.dateFormat}}"
+			ng-model="activeException.expFinishDate" bootstrap-datetimepicker=""
+			picktime="false" ng-change="autoSaveException($event)">
+			<label class="input-group-addon">{{'cont_label_expfinishdate'
+				| translate}}</label> <input type="text" class="form-control"
+				name="expFinishDate" ng-readonly="!exceptionEditable"
+				ng-disabled="!exceptionEditable"> <label
+				class="input-group-addon add-on" ng-hide="!exceptionEditable">
+				<i data-date-icon="glyphicon glyphicon-calendar"> </i>
+			</label>
+		</div>
+		<div class="input-group">
+			<label class="input-group-addon">{{'cont_label_iswork' |
+				translate}}</label>
+			<buttons-radio class="btn-group" data-toggle="buttons-radio"
+				model='activeException.isWork' suffix="default" idProperty="id"
+				nameProperty="name" options='yesNoOptions'></buttons-radio>
+		</div>
+	</div>
+</div>
+
+<div class="wscol-body settingsedit-body setresourceedit-body"
+	ng-show="activeAction.key == 'setresource'">
+	<div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+		<div class="input-group">
+			<label class="input-group-addon">{{'cont_label_contactkey' |
+				translate}}</label> <select class="form-control"
+				ng-disabled="!resourceEditable" ng-model="activeResource.contactKey"
+				ng-options="contact.key as contact.contactName for contact in contacts"
+				ng-change="autoSaveResource($event)"><option value="">{{'core_label_notselected'
+					| translate}}</option></select>
+		</div>
+		<div class="input-group input-date input-append date"
+			format="{{loginUser.dateFormat}}" ng-model="activeResource.joinDate"
+			bootstrap-datetimepicker="" picktime="false"
+			ng-change="autoSaveResource($event)">
+			<label class="input-group-addon">{{'cont_label_joindate' |
+				translate}}</label> <input type="text" class="form-control" name="joinDate"
+				ng-readonly="!resourceEditable" ng-disabled="!resourceEditable">
+			<label class="input-group-addon add-on" ng-hide="!resourceEditable">
+				<i data-date-icon="glyphicon glyphicon-calendar"> </i>
+			</label>
+		</div>
+		<div class="input-group input-date input-append date"
+			format="{{loginUser.dateFormat}}" ng-model="activeResource.quitDate"
+			bootstrap-datetimepicker="" picktime="false"
+			ng-change="autoSaveResource($event)">
+			<label class="input-group-addon">{{'cont_label_quitdate' |
+				translate}}</label> <input type="text" class="form-control" name="quitDate"
+				ng-readonly="!resourceEditable" ng-disabled="!resourceEditable">
+			<label class="input-group-addon add-on" ng-hide="!resourceEditable">
+				<i data-date-icon="glyphicon glyphicon-calendar"> </i>
+			</label>
+		</div>
+		<div class="input-group">
+			<label class="input-group-addon">{{'cont_label_contactlevel'
+				| translate}}</label> <select class="form-control"
+				ng-disabled="!resourceEditable"
+				ng-model="activeResource.contactLevel"
+				ng-change="autoSaveResource($event)"><option
+					ng-repeat="level in contactLevelOptions" value="{{level.id}}"
+					ng-selected="activeResource.contactLevel == level.id">{{level.name}}</option></select>
+		</div>
+		<div class="input-group">
+			<label class="input-group-addon">{{'cont_label_isbillable' |
+				translate}}</label>
+			<buttons-radio class="btn-group" data-toggle="buttons-radio"
+				model='activeResource.isBillable' suffix="default" idProperty="id"
+				nameProperty="name" options='yesNoOptions'></buttons-radio>
+		</div>
+		<div class="input-group">
+			<label class="input-group-addon">{{'cont_label_cgremark' |
+				translate}}</label>
+			<textarea class="form-control" name="cgRemark"
+				ng-model="activeResource.cgRemark" ng-readonly="!resourceEditable"
+				ng-keyup="autoSaveResource($event)"></textarea>
+		</div>
+	</div>
+</div>

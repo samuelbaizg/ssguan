@@ -1,0 +1,59 @@
+<div class="wscol-body">
+	<div class="panel-group" id="settingsNavAccordion" role="tablist"
+		aria-multiselectable="true">
+		<div class="panel panel-default">
+			<div class="panel-heading" role="tab" id="groupSettingsHead">
+				<h4 class="panel-title">
+					<a data-toggle="collapse" data-parent="#settingsNavAccordion"
+						href="#groupSettingsBody" aria-expanded="true"
+						aria-controls="groupSettingsBody"> <i class="fa fa-group">&nbsp;</i>{{'cont_label_groupsettings'
+						| translate}}
+					</a>
+				</h4>
+			</div>
+			<div id="groupSettingsBody" class="panel-collapse collapse in"
+				role="tabpanel" aria-labelledby="groupSettingsHead">
+				<div class="panel-body">
+					<div class="list-group-item">
+						<select class="form-control" ng-model="groupKey"
+							ng-options="group.key as group.groupName for group in groups"
+							ng-change="groupChange()">
+							<option value="">{{'core_label_notselected' |
+								translate}}</option>
+						</select>
+					</div>
+					<a class="list-group-item cursor-pointer"
+						ng-click="groupCalendarClick()"> <i class="fa fa-calendar"></i>
+						<span>{{'core_label_set'|translate}}{{'cont_label_groupcalendar'|translate}}</span>
+					</a> <a class="list-group-item cursor-pointer"
+						ng-click="groupResourceClick()"> <i class="fa fa-rocket"></i>
+						<span>{{'core_label_set'|translate}}{{'cont_label_groupresource'|translate}}</span>
+					</a> <a class="list-group-item cursor-pointer"
+						ng-click="groupComponentClick()"> <i class="fa fa-bars"></i> <span>{{'core_label_set'|translate}}{{'cont_label_groupcomponent'|translate}}</span>
+					</a> <a class="list-group-item cursor-pointer"
+						ng-click="groupVersionClick()"> <i class="fa fa-rocket"></i> <span>{{'core_label_set'|translate}}{{'cont_label_groupversion'|translate}}</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading" role="tab" id="securitySettingsHead">
+				<h4 class="panel-title">
+					<a data-toggle="collapse" data-parent="#settingsNavAccordion"
+						href="#securitySettingsBody" aria-expanded="true"
+						aria-controls="securitySettingsBody"> <i class="fa fa-tasks">&nbsp;</i>{{'user_label_securitysettings'
+						| translate}}
+					</a>
+				</h4>
+			</div>
+			<div id="securitySettingsBody" class="panel-collapse collapse in"
+				role="tabpanel" aria-labelledby="securitySettingsHead">
+				<div class="panel-body">
+					<a class="list-group-item cursor-pointer"
+						ng-click="changePasswordClick()"> <i class="fa fa-key"></i> <span>{{'core_action_changepwd'|translate}}</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,275 @@
+<script>
+	var sysmanutil = {
+
+		html : function(id, html) {
+			var elmt = document.getElementById(id);
+			if (html == undefined) {
+				return elmt.innerHTML;
+			} else {
+				elmt.innerHTML = html;
+			}
+		},
+
+		browser : function() {
+			var b = navigator.userAgent.toLowerCase();
+
+			var browser = {
+				safari : /webkit/.test(b),
+				opera : /opera/.test(b),
+				msie : /msie/.test(b) && !/opera/.test(b),
+				mozilla : /mozilla/.test(b) && !/compatible/.test(b)
+			};
+			return browser;
+		},
+		post : function(ctx, postData) {
+			var messageDiv = document.getElementById("messageDIV");
+			messageDiv.innerHTML = "Is progressing....";
+			var url = window.location.origin + "/" + ctx;
+			if (!window.XMLHttpRequest) {
+				windows.XMLHttpRequest = new ActiveXObject(navigator.userAgent
+						.indexOf("MSIE 5") >= 0 ? "Microsoft.XMLHTTP"
+						: "Msxml2.XMLHTTP");
+			}
+			var xml = new XMLHttpRequest();
+			xml.open('POST', url, true);
+			xml.setRequestHeader("Content-Type",
+					"application/json;charset=UTF-8");
+			xml.onreadystatechange = function() {
+				if (xml.readyState != 4)
+					return;
+				if (xml.status != 200 && xml.status != 304) {
+					messageDiv.innerHTML("HTTP error with the status"
+							+ xml.status);
+				} else {
+					var data = xml.responseText;
+					if (!data.match("^\{(.+:.+,*){1,}\}$$")) {
+						sysmanutil.html("sysmanWorkspaceDIV", data);
+						messageDiv.innerHTML = ""
+					} else {
+						data = eval("(" + data + ")");
+						if (data.status != 'core_status_success') {
+							messageDiv.innerHTML = data.message;
+						} else {
+							sysmanutil.html("sysmanWorkspaceDIV", data.status);
+							messageDiv.innerHTML = ""
+						}
+					}
+				}
+			}
+			var l = "{";
+			for ( var key in postData) {
+				l += '"' + key + '":"' + postData[key] + '",';
+			}
+			if (l.length > 1) {
+				l = l.substring(0, l.length - 1);
+			}
+			l += "}";
+			xml.send(l);
+		}
+	};
+	var sysman = {
+
+		login : function() {
+			var srcElmt = document.getElementById("loginLI");
+			sysmanutil.html("sysmanTitlebarDIV", srcElmt.innerHTML);
+			location.href = "sysman";
+		},
+
+		logout : function() {
+			var srcElmt = document.getElementById("logoutLI");
+			sysmanutil.html("sysmanTitlebarDIV", srcElmt.innerHTML);
+			sysmanutil.post("sysman", {
+				ha : 'logout'
+			});
+		},
+
+		loginsubmit : function() {
+			var loginName = document.getElementById("sysmanLoginName").value;
+			var password = document.getElementById("sysmanLoginPwd").value;
+			var postData = {
+				loginName : loginName,
+				loginPwd : password,
+				ha : 'login'
+			};
+			sysmanutil.post("sysman", postData);
+		},
+
+		migrate : function() {
+			sysmanutil.post("sysman", {
+				ha : 'fetchmigrations',
+				action : 'migrate'
+			});
+		},
+
+		downgrade : function(verid) {
+			sysmanutil.post("sysman", {
+				ha : 'fetchmigrations',
+				action : 'downgrade',
+				verid : verid
+			});
+		},
+
+		fetchmigrations : function() {
+			var srcElmt = document.getElementById("fetchMigrationsLI");
+			sysmanutil.html("sysmanTitlebarDIV", srcElmt.innerHTML);
+			sysmanutil.html("sysmanWorkspaceDIV", "");
+			sysmanutil.post("sysman", {
+				ha : 'fetchmigrations'
+			});
+		},
+		fetchlogs : function() {
+			var srcElmt = document.getElementById("fetchLogsLI");
+			var logLevelSelt = document.getElementById("logLevelSelt");
+			var level = logLevelSelt == null ? 'ERROR'
+					: logLevelSelt.options[logLevelSelt.selectedIndex].value;
+			sysmanutil.html("sysmanTitlebarDIV", srcElmt.innerHTML);
+			sysmanutil.html("sysmanWorkspaceDIV", "");
+			sysmanutil.post("sysman", {
+				ha : 'fetchlogs',
+				level : level
+			});
+		},
+		fetchsysprops : function() {
+			var srcElmt = document.getElementById("fetchSysPropsLI");
+			sysmanutil.html("sysmanTitlebarDIV", srcElmt.innerHTML);
+			sysmanutil.html("sysmanWorkspaceDIV", "");
+			sysmanutil.post("sysman", {
+				ha : 'fetchsysprops'
+			});
+		},
+		fetchi18ns : function() {
+			var srcElmt = document.getElementById("fetchI18nsLI");
+			sysmanutil.html("sysmanTitlebarDIV", srcElmt.innerHTML);
+			sysmanutil.html("sysmanWorkspaceDIV", "");
+			sysmanutil.post("sysman", {
+				ha : 'fetchi18ns'
+			});
+		},
+		viewcache : function() {
+			var srcElmt = document.getElementById("viewCacheLI");
+			sysmanutil.html("sysmanTitlebarDIV", srcElmt.innerHTML);
+			sysmanutil.html("sysmanWorkspaceDIV", "");
+			sysmanutil.post("sysman", {
+				ha : 'viewcache'
+			});
+		},
+
+		delcache : function(cacheKey) {
+			sysmanutil.post("sysman", {
+				ha : 'viewcache',
+				action : 'delcache',
+				caKey : cacheKey
+			});
+		}
+
+	};
+</script>
+
+<style>
+.sysman-main {
+	width: 100%;
+	overflow: hidden;
+}
+
+.sysman-sidebar {
+	width: 250px;
+	float: left;
+}
+
+.sysman-sidebar li {
+	padding: 2px;
+}
+
+.sysman-titlebar {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.sysman-messagebar {
+	margin-top: 10px;
+}
+
+.sysman-buttonbar {
+	padding: 5px;
+}
+
+.sysman-split {
+	width: 1px;
+	height: 100%;
+	float: left;
+	border-right: 1px solid #e5ecf9;
+}
+
+.sysman-main-workspace {
+	width: 70%;
+	margin: 10px 10px 10px 10px;
+	float: left;
+}
+
+.sysman-sidebar, .sysman-main-workspace span {
+	cursor: pointer;
+}
+
+.sysman-main-workspace table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.sysman-main-workspace td, th {
+	border: 1px solid black;
+	padding: 5px;
+}
+
+.sysman-main-workspace h1, h2, h3, h4, h5 {
+	margin: 3px;
+}
+</style>
+<div class="sysman-main" id="sysmanMainDIV">
+	<div class="sysman-sidebar">
+		<ul>
+			<li id="fetchLogsLI"><span onclick="sysman.fetchlogs()">View
+					Log</span></li>
+			<li id="fetchI18nsLI"><span onclick="sysman.fetchi18ns()">View
+					I18n</span></li>
+			<li id="viewCacheLI"><span onclick="sysman.viewcache()">View
+					Cache</span></li>
+			<li id="fetchSysPropsLI"><span onclick="sysman.fetchsysprops()">View
+					Sys-Prop</span></li>
+			<li id="fetchMigrationsLI"><span
+				onclick="sysman.fetchmigrations()">View Migration</span></li>
+			<li id="loginLI"><span onclick="sysman.login()">Login</span></li>
+			<li id="logoutLI"><span onclick="sysman.logout()">Logout</span></li>
+		</ul>
+	</div>
+	<div class="sysman-split "></div>
+	<div class="sysman-main-workspace">
+
+		<div class="sysman-titlebar" id="sysmanTitlebarDIV">System Login</div>
+		<div>
+			<hr />
+		</div>
+		<div id="sysmanWorkspaceDIV">
+			<form id="loginDIV">
+				<div>
+					<label>Login Name:</label> <input id="sysmanLoginName" type="text"
+						value="" size="25" autocomplete="off" />
+
+				</div>
+				<div>
+					<label style="margin-left: 19px;">Password:</label> <input
+						id="sysmanLoginPwd" type="password" value="" size="25"
+						autocomplete="off" />
+				</div>
+				<h2></h2>
+				<div align="left" style="margin-left: 80px">
+					<input class="btn-submit" value="Login" type="button"
+						onclick="sysman.loginsubmit(this)" /> <input value="Clear"
+						type="reset" />
+				</div>
+			</form>
+		</div>
+		<div class="sysman-messagebar" id="messageDIV"></div>
+
+	</div>
+</div>
+

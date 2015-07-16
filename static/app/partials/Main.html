@@ -1,0 +1,119 @@
+<div class="main" main>
+	<div class="nav-left nav-left-default border-right hidden-xs hidden-sm"
+		navbar ng-hide="loginUser.anonymous">
+		<div class="logo cursor-pointer" ng-click="showSidebar(false)"></div>
+		<ul class="nav">
+			<li><a href="#/task"
+				title="{{ 'task_label_taskmodule' |
+								translate }}"><i
+					class="fa fa-list fa-2x"></i></a></li>
+			<li><a href="#/note"
+				title="{{ 'note_label_notemodule' |
+								translate }}"><i
+					class="fa fa-file-text-o fa-2x"></i></a></li>
+			<li><a href="#/contact"
+				title="{{ 'cont_label_contactmodule' |
+								translate }}"><i
+					class="glyphicon glyphicon-user fa-2x"></i></a></li>
+			<li><a href="#/report"
+				title="{{ 'rept_label_report' |
+								translate }}"><i
+					class="fa fa-bar-chart fa-2x"></i></a></li>
+		</ul>
+		<ul class="nav shortcuts border-top" ng-repeat="shortcut in shortcuts">
+			<li><a ng-click="shortcutClick(shortcut.link)"
+				title="{{shortcut.title | translate}}" class="cursor-pointer"><i
+					class="{{shortcut.iconClass}}"></i></a></li>
+		</ul>
+		<ul class="nav usersettings border-top">
+			<li><a href="#/settings"
+				title="{{ 'core_action_usersettings' |
+								translate }}"><i
+					class="fa fa-cog fa-2x"></i></a></li>
+		</ul>
+	</div>
+	<div class="workspace sidebar" ng-hide="loginUser.anonymous">
+		<div
+			class="col-xs-12 col-sm-12 col-md-3 col-lg-3 sidebar-content border-right">
+			<div id="navbar"
+				class="navbar navbar-default visible-xs-block visible-sm-block">
+				<ul class="nav navbar-nav pull-left">
+					<li><a href="#/task"
+						title="{{ 'task_label_taskmodule' |
+								translate }}"><i
+							class="fa fa-list fa-2x"></i></a></li>
+					<li><a href="#/note"
+						title="{{ 'note_label_notemodule' |
+								translate }}"><i
+							class="fa fa-file-text-o fa-2x"></i></a></li>
+					<li><a href="#/contact"
+						title="{{ 'cont_label_contactmodule' |
+								translate }}"><i
+							class="glyphicon glyphicon-user fa-2x"></i></a></li>
+					<li><a href="#/report"
+						title="{{ 'rept_label_report' |
+								translate }}"><i
+							class="fa fa-bar-chart fa-2x"></i></a></li>
+
+				</ul>
+				<ul class="nav navbar-nav pull-right">
+					<li><a href="#/settings"
+						title="{{ 'core_action_usersettings' |
+								translate }}"><i
+							class="fa fa-cog fa-2x"></i></a></li>
+					<li class="hidden-md hidden-lg cursor-pointer"><a
+						ng-click="showSidebar(true)"> <i
+							class="fa fa-angle-double-left fa-2x"
+							title="{{'core_action_close' | translate}}"></i></a>
+				</ul>
+			</div>
+			<div id="sidebar"
+				class="panel panel-default border-radius-no border-no">
+				<div
+					class="sidebar-head panel-heading border-bottom border-radius-no"
+					ng-include="sidebarHeadTmpl"></div>
+				<div class="sidebar-body" ng-include="sidebarBodyTmpl"
+					onload="resizeSidebar()"></div>
+			</div>
+		</div>
+		<div
+			class="hidden-xs hidden-sm col-md-9 col-lg-9 sidebar-shadow cursor-pointer"
+			ng-click="showSidebar(true)">
+			<i class="fa fa-angle-double-left fa-2x"
+				title="{{'core_action_close' | translate}}"></i>
+		</div>
+	</div>
+	<div class="workspace">
+		<div id="wsLeftCol"
+			class="panel panel-default border-right border-radius-no">
+			<div class="wscol-head panel-heading border-bottom border-radius-no">
+				<div
+					class="logo-sm cursor-pointer visible-xs-block visible-sm-block pull-left"
+					ng-click="showSidebar(false)"></div>
+				<div class="wscol-head-right" ng-include="wsLeftColHeadTmpl"></div>
+			</div>
+			<div ng-include="wsLeftColBodyTmpl" onload="resizeWsLeftCol()"></div>
+		</div>
+		<div id="wsRightCol"
+			class="panel panel-default border-radius-no border-no">
+			<div class="wscol-head panel-heading border-bottom border-radius-no">
+				<div class="pull-left">
+					<div class="cursor-pointer icon-btn pull-left">
+						<i
+							class="fa fa-angle-double-left fa-2x visible-xs-block visible-sm-block"
+							title="{{'core_action_back' | translate}}"
+							ng-click="closeWsRightCol()"></i> <i
+							class="fa fa-angle-double-right fa-2x visible-md-block visible-lg-block"
+							title="{{'core_action_close' | translate}}"
+							ng-click="closeWsRightCol()"></i>
+					</div>
+				</div>
+				<div class="wscol-head-right" ng-include="wsRightColHeadTmpl"></div>
+
+			</div>
+			<div ng-include="wsRightColBodyTmpl" onload="resizeWsRightCol()"></div>
+		</div>
+	</div>
+	<div class="hidden" ds-status="*" showinprogress="false"
+		showsuccess="false" showerror="true"></div>
+</div>

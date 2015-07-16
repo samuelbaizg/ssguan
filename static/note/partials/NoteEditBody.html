@@ -1,0 +1,21 @@
+<div class="wscol-body noteedit">
+	<div class="note-editor-row">
+		<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+			<select ng-model="activeNote.notebookKey"
+				ng-options="notebook.key as notebook.notebookName group by notebook.creatorDisplayName for notebook in notebooks | filter : {key : '!-100'}"
+				class="form-control" ng-disabled="!noteEditable" ng-change="saveNote(true)"></select>
+		</div>
+	</div>
+	<div>
+		<input type="text" class="form-control" id="subjectTxt" name="subject"
+			ng-model="activeNote.noteSubject"
+			placeholder="{{'note_label_notesubject' | translate}}"
+			ng-readonly="!noteEditable" autosave="saveNote(true)" />
+
+	</div>
+	<div id="noteEditor" bootstrap-wysiwyg
+		ng-model="activeNote.noteContent"
+		language="{{loginUser.preferredLanguage}}"
+		readonly="{{!noteEditable}}" height-adjustment="2"
+		toolbar="hidden-xs hidden-sm" autosave="saveNote(true)"></div>
+</div>

@@ -1,0 +1,34 @@
+<div class="wscol-body contactlist-body"
+	infinitescroll="fetchContacts(contactPager.page+1, true)">
+
+	<table class="table table-hover">
+		<thead class="hidden-xs hidden-sm">
+			<tr>
+				<th>{{'cont_label_contactname' | translate }}</th>
+				<th>{{'cont_label_companymime' | translate }}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="cursor-pointer"
+				ng-class="{active: contact.key==activeContact.key}"
+				ng-click="updateContact(contact,false)"
+				ng-repeat="contact in contactPager.records">
+				<td class="hidden-xs hidden-sm">{{contact.contactName}}<span
+					class="ismall" ng-show="isCreatedByOther(contact)">-{{contact.creatorDisplayName}}</span></td>
+				<td class="hidden-xs hidden-sm">{{contact.company}}
+					{{contact.department}}</td>
+				<td class="hidden-md hidden-lg">
+					<h4 class="list-group-item-heading">{{contact.contactName}}</h4>
+					<p class="contactcompany">{{contact.company}}
+						{{contact.department}}</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div class="post-status pull-left" ds-status="d?ha=contactlist"
+		zerokey="count"></div>
+	<div class="post-status pull-left" ds-status="d?ha=grouplist"
+		showsuccess="false"></div>
+
+</div>

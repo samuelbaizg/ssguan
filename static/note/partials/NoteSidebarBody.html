@@ -1,0 +1,60 @@
+
+<div class="panel-group" id="myNotebooksAccordion" role="tablist"
+	aria-multiselectable="true">
+	<div class="panel panel-default">
+		<div class="panel-heading" role="tab" id="myNotebooksHead">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#myNotebooksAccordion"
+					href="#myNotebooksBody" aria-expanded="true"
+					aria-controls="myNotebooksBody"><i class="fa fa-book"></i>
+					{{'note_label_mynotebooks' | translate}}</a> <span
+					class="pull-right cursor-pointer" ng-click="editNotebook(true)"
+					ng-hide="notebookEditable">{{'core_action_update'|translate}}</span>
+				<span class="pull-right cursor-pointer"
+					ng-click="editNotebook(false)" ng-hide="!notebookEditable">{{'core_action_done'|translate}}</span>
+			</h4>
+		</div>
+		<div id="myNotebooksBody" class="panel-collapse collapse in"
+			role="tabpanel" aria-labelledby="myNotebooksHead">
+			<div class="panel-body">
+				<a class="list-group-item cursor-pointer"
+					ng-click="notebookClick(notebook,$event)"
+					ng-repeat="notebook in notebooks | filter : isCreatedBySelf"> <i
+					class="fa fa-remove fa-2x"
+					ng-hide="!notebookEditable || notebook.key == DEFAULT_NOTEBOOK_ID">&nbsp;</i><i
+					ng-class="{'fa fa-share-alt' : notebook.groupKey != null && notebook.groupKey != EMPTY_UID,'fa fa-book' : notebook.key != TRASH_NOTEBOOK_ID || notebook.key == DEFAULT_NOTEBOOK_ID, 'fa fa-recycle':notebook.key == TRASH_NOTEBOOK_ID}"
+					ng-show="!notebookEditable || (notebookEditable && notebook.key == DEFAULT_NOTEBOOK_ID)">&nbsp;</i><span>{{notebook.notebookName}}</span><span
+					ng-show="notebook.groupKey != null && notebook.groupKey != -1"
+					class="ismall">-{{notebook.groupName}}</span><span
+					class="badge"
+					ng-show="!notebookEditable || (notebookEditable && (notebook.key == DEFAULT_NOTEBOOK_ID || notebook.key == TRASH_NOTEBOOK_ID)) ">{{notebook.notecount}}</span><i
+					class="fa fa-edit fa-2x pull-right"
+					ng-hide="!notebookEditable || notebook.key == TRASH_NOTEBOOK_ID || notebook.key == DEFAULT_NOTEBOOK_ID">&nbsp;</i>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading" role="tab" id="sharedNotebooksHead">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#myNotebooksAccordion"
+					href="#sharedNotebooksBody" aria-expanded="true"
+					aria-controls="sharedNotebooksBody"> <i class="fa fa-tasks">&nbsp;</i>{{'note_label_sharednotebooks'
+					| translate}}
+				</a>
+			</h4>
+		</div>
+		<div id="sharedNotebooksBody" class="panel-collapse collapse in"
+			role="tabpanel" aria-labelledby="sharedNotebooksHead">
+			<div class="panel-body">
+				<a class="list-group-item cursor-pointer"
+					ng-click="notebookClick(notebook,$event)"
+					ng-repeat="notebook in notebooks  | filter : isCreatedByOther"> <i
+					ng-class="fa fa-tasks"></i> <span>{{notebook.notebookName}}</span><span
+					ng-show="notebook.groupKey != null && notebook.groupKey != -1"
+					class="ismall">-{{notebook.creatorDisplayName}}</span><span class="badge">{{notebook.notecount}}</span>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
