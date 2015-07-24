@@ -48,7 +48,10 @@ class Build(object):
                 
         self.__temppath = buildpath + "/" + self.BUILD_DIRNAME
         self.__buildpath = buildpath
-        
+    
+    def __ignore_patterns(self):
+        return shutil.ignore_patterns(".git", ".gitignore")
+      
     def __rmtree(self, path):
         while os.path.exists(path):
             shutil.rmtree(path, ignore_errors=True)
@@ -73,7 +76,7 @@ class Build(object):
     
     def __copy_sources(self):
         ioutil.delete_files(self.__projectpath, ".pyc")
-        shutil.copytree(self.__projectpath, self.__temppath)
+        shutil.copytree(self.__projectpath, self.__temppath, ignore=self.__ignore_patterns())
         
         self.__rmtree("%s/.settings" % self.__temppath)
         self.__rmtree("%s/test" % self.__temppath)

@@ -27,6 +27,7 @@
 	addJS('contrib/crypto/rng.js');
 	addJS('contrib/crypto/rsa.js');
 	addJS('contrib/crypto/base64.js');
+	addJS('contrib/crypto/base642.js');
 	
 	addJS('contrib/angular/angular.js');
 	// addJS('contrib/angular/angular-resource.js');

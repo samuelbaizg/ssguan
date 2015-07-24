@@ -26,15 +26,12 @@ PAD_PKCS5 = pyDes.PAD_PKCS5
 
 def rsa_gen_key_hex(bits):
     (pub_key, priv_key) = rsa.newkeys(bits)
-    print pub_key
-    print priv_key
     jd = {}
     jd['e'] = hex(pub_key.e)[2:].upper()
     jd['n'] = hex(pub_key.n)[2:-1].upper()
     jd['d'] = hex(priv_key.d)[2:-1].upper()
     jd['p'] = hex(priv_key.p)[2:-1].upper()
     jd['q'] = hex(priv_key.q)[2:-1].upper()
-    print jd
     return jd
     
 def rsa_deg_key_hex(rsa_key):

@@ -45,6 +45,10 @@ def encrypt_password(password):
     return password
 
 def create_user(u_name, u_email, u_account, u_password, is_disabled, modifier_id):
+    length = conf.get_useraccount_length()
+    length = map(int, length)
+    if (len(u_account) < length[0] or len(u_account) > length[1]):
+        raise LengthError("core_label_accountname", length[0], length[1])
     length = conf.get_userpassword_length()
     length = map(int, length)
     if (len(u_password) < length[0] or len(u_password) > length[1]):
@@ -118,7 +122,11 @@ def login(login_name, login_password):
     if login_name == ANONYMOUS_ACCOUNT_NAME:
         usermodel = get_user(u_account=login_name)
     else:
-        login_password = decrypt_password(login_password)
+        try:
+            login_name = decrypt_password(login_name)
+            login_password = decrypt_password(login_password)
+        except:
+            raise LoginFailedError()
         query = User.all()
         query.filter("u_account =", login_name, parenthesis="(")
         query.filter("u_email =", login_name, logic="or", parenthesis=")")
@@ -137,6 +145,8 @@ def login(login_name, login_password):
     return token
 
 def signup(u_name, u_email, u_account, u_password, is_disabled, modifier_id):
+    
+    
     usermodel = create_user(u_name, u_email, u_account, u_password, is_disabled, modifier_id)
     role = get_role(role_name="Anonymous")
     create_userrole(usermodel.key(), role.key(), modifier_id)

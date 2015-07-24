@@ -15,6 +15,7 @@
 #  limitations under the License.
 import traceback
 import user
+import base64
 
 import conf
 from core import filex, session, strutil
@@ -74,7 +75,9 @@ class Rtn(object):
         return codedt
             
     def to_json(self, wrapper=True):
-        return jsonutil.to_json(self.to_dict(), wrapper)
+        jsonstr = jsonutil.to_json(self.to_dict(), wrapper)
+        jsonstr = base64.b64encode(jsonstr)
+        return jsonstr
     
     def _get_i18n_message(self, code, arguments):
         language = conf.get_preferred_language()
@@ -115,7 +118,10 @@ class BaseHandler(object):
         return web.input()
     
     def _get_json_data(self):
-        return jsonutil.to_dict(web.data())
+        data = web.data()
+        data = base64.b64decode(data)
+        data = jsonutil.to_dict(data)
+        return data
     
     def _has_parameter(self, name):
         data = self._get_data()

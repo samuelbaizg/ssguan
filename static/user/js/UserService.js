@@ -1,19 +1,19 @@
 'use strict';
-//  Copyright 2015 www.suishouguan.com
+// Copyright 2015 www.suishouguan.com
 //
-//  Licensed under the Private License (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
+// Licensed under the Private License (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
 //
-//      https://github.com/samuelbaizg/ssguan/blob/master/LICENSE
+// https://github.com/samuelbaizg/ssguan/blob/master/LICENSE
 //
-//  Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS,
-//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//  See the License for the specific language governing permissions and
-//  limitations under the License.
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
-var UserService = function(http, $q, $translate,$rootScope) {
+var UserService = function(http, $q, $translate, $filter, $rootScope) {
 
 	var factory = {
 
@@ -51,9 +51,12 @@ var UserService = function(http, $q, $translate,$rootScope) {
 
 	factory.login = function(loginName, loginPwd) {
 		var rsa = new RSAKey();
-		rsa.setPublic($rootScope.loginUser.lopuKey.n, $rootScope.loginUser.lopuKey.e);
+		rsa.setPublic($rootScope.loginUser.lopuKey.n,
+				$rootScope.loginUser.lopuKey.e);
 		var res = rsa.encrypt(loginPwd);
 		loginPwd = hex2b64(res);
+		res = rsa.encrypt(loginName);
+		loginName = hex2b64(res);
 		function login_callback(data) {
 			angular.copy(data, factory.token);
 			$translate.use(factory.token.preferredLanguage);
@@ -62,9 +65,6 @@ var UserService = function(http, $q, $translate,$rootScope) {
 			});
 			return factory.token;
 		}
-		
-		
-
 		return http.post('d?ha=login', {
 			loginName : loginName,
 			loginPwd : loginPwd
@@ -109,4 +109,4 @@ var UserService = function(http, $q, $translate,$rootScope) {
 	return factory;
 };
 
-UserService.$inject = [ 'dsHttp', '$q', '$translate','$rootScope' ];
+UserService.$inject = [ 'dsHttp', '$q', '$translate', '$filter', '$rootScope' ];

@@ -34,7 +34,7 @@ except:
                   "port": 3306,
                   "username" : "root",
                   "password" : "1234",
-                  "dbname":"guan1"
+                  "dbname":"guan"
                   }
     
 try:
@@ -182,9 +182,13 @@ def get_upload_file_maximum_size():
         user.create_userprop("UPLOADFILE_MAXIMUM_SIZE", value, session.get_token().user_id, session.get_token().user_id)
         return value
 
+def get_useraccount_length():
+    from core import sysprop
+    return sysprop.get_sysprop_value("USERACCOUNT_LENGTH", [3, 20])
+
 def get_userpassword_length():
     from core import sysprop
-    return sysprop.get_sysprop_value("USERPASSWORD_LENGTH", [6,20])
+    return sysprop.get_sysprop_value("USERPASSWORD_LENGTH", [6, 20])
 
 def get_supported_languages():
     from core import sysprop

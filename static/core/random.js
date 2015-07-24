@@ -1,4 +1,4 @@
-'use strict';
+//'use strict';
 //  Copyright 2015 www.suishouguan.com
 //
 //  Licensed under the Private License (the "License");

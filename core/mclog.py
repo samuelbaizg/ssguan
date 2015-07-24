@@ -27,8 +27,10 @@ def fetch_mclogs(model_name, model_key, **kwds):
         mclog.logDetails = query.fetch()
         for logdetail in mclog.logDetails:
             if kwds.has_key(logdetail.field_name):
-                logdetail.fvalue_last = kwds[logdetail.field_name](logdetail.fvalue_last)
-                logdetail.fvalue_present = kwds[logdetail.field_name](logdetail.fvalue_present)
+                fvalue_last = None if logdetail.fvalue_last == 'None' else logdetail.fvalue_last
+                fvalue_present = None if logdetail.fvalue_present == 'None' else logdetail.fvalue_present
+                logdetail.fvalue_last = kwds[logdetail.field_name](fvalue_last)
+                logdetail.fvalue_present = kwds[logdetail.field_name](fvalue_present)
         mclog.userDisplayName = user.get_user_display_name(mclog.user_id)
     return mclogs
         
