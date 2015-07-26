@@ -54,9 +54,9 @@ var UserService = function(http, $q, $translate, $filter, $rootScope) {
 		rsa.setPublic($rootScope.loginUser.lopuKey.n,
 				$rootScope.loginUser.lopuKey.e);
 		var res = rsa.encrypt(loginPwd);
-		loginPwd = hex2b64(res);
+		loginPwd = res;
 		res = rsa.encrypt(loginName);
-		loginName = hex2b64(res);
+		loginName = res;
 		function login_callback(data) {
 			angular.copy(data, factory.token);
 			$translate.use(factory.token.preferredLanguage);

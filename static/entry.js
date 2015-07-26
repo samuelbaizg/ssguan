@@ -22,12 +22,11 @@
 	addCSS('contrib/fontawesome/css/font-awesome.css');
 
 	
-	addJS('contrib/crypto/jsbn.js');
-	addJS('contrib/crypto/prng4.js');
-	addJS('contrib/crypto/rng.js');
-	addJS('contrib/crypto/rsa.js');
-	addJS('contrib/crypto/base64.js');
-	addJS('contrib/crypto/base642.js');
+	addJS('contrib/crypto/rsa/jsbn.js');
+	addJS('contrib/crypto/rsa/prng4.js');
+	addJS('contrib/crypto/rsa/rng.js');
+	addJS('contrib/crypto/rsa/rsa.js');
+	addJS('contrib/crypto/base64/base64.js');
 	
 	addJS('contrib/angular/angular.js');
 	// addJS('contrib/angular/angular-resource.js');

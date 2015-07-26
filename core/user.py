@@ -33,7 +33,7 @@ CACHESPACE_USERNAME = "username"
 CACHESPACE_PERMISSION = "permission"
 
 def decrypt_password(password):
-    password = base64.b64decode(password)
+    password = password.decode('hex')
     return cryptoutil.rsa_decrypt(password, session.get_token().rsa_key)
 
 def encrypt_password(password):
