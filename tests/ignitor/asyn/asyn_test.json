@@ -1,0 +1,47 @@
+{
+	"conduit": {
+		"testdbConduit": {
+			"clazz": "ssguan.ignitor.asyn.dbconduit.DBConduit",
+			"arguments": {
+				"max_attempts": 3,
+				"max_length": 524288,
+				"timespan": 1
+			}
+		},
+		"testdbConduit3": {
+			"clazz": "ssguan.ignitor.asyn.dbconduit.DBConduit",
+			"arguments": {
+				"max_attempts": 2,
+				"max_length": 208,
+				"timespan": 1
+			}
+		},
+		"testdbConduit4": {
+			"clazz": "ssguan.ignitor.asyn.dbconduit.DBConduit",
+			"arguments": {
+				"max_attempts": 1,
+				"max_length": 208,
+				"timespan": 2
+			}
+		}
+	},
+	"processor": {
+		"message_type_1": {
+			"conduit_name": "testdbConduit",
+			"clazz": "tests.ignitor.asyn.dbconduit_test.Processor1"
+		},
+		"message_type_2": {
+			"conduit_name": "testdbConduit",
+			"clazz": "tests.ignitor.asyn.dbconduit_test.Processor2"
+		},
+		"message_type_3": {
+			"conduit_name": "testdbConduit3",
+			"clazz": "tests.ignitor.asyn.dbconduit_test.Processor3"
+		},
+		"message_type_4": {
+			"conduit_name": "testdbConduit4",
+			"clazz": "tests.ignitor.asyn.dbconduit_test.Processor4"
+		}
+		
+	}
+}

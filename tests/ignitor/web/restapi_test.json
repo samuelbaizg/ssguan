@@ -1,0 +1,68 @@
+{
+	"noargs": {
+		"method": "get",
+		"function": "tests.ignitor.web.restapi_test.api_a",
+		"content-type": "application/json",
+		"operation": "per1"
+	},
+	"args_get": {
+		"method": "get",
+		"function": "tests.ignitor.web.restapi_test.api_b",
+		"content-type": "application/json",
+		"operation": "per1"
+	},
+	"args_post": {
+		"method": "post",
+		"function": "tests.ignitor.web.restapi_test.api_b",
+		"content-type": "application/json",
+		"operation": "per1"
+	},
+	"args_put": {
+		"method": "put",
+		"function": "tests.ignitor.web.restapi_test.api_b",
+		"content-type": "application/json",
+		"operation": "per1"
+	},
+	"args_delete": {
+		"method": "delete",
+		"function": "tests.ignitor.web.restapi_test.api_b",
+		"content-type": "application/json",
+		"operation": "per1"
+	},
+	"kwargs": {
+		"method": "get",
+		"function": "tests.ignitor.web.restapi_test.api_c",
+		"content-type": "application/json",
+		"operation": "per1"
+	},
+	"createtm": {
+		"method": "post",
+		"function": "create:tests.ignitor.web.restapi_test.TModelWeb",
+		"content-type": "application/json",
+		"operation": "per1"
+	},
+	"updatetm": {
+		"method": "put",
+		"function": "update:tests.ignitor.web.restapi_test.TModelWeb",
+		"content-type": "application/json",
+		"operation": "per1"
+	},
+	"deletetm": {
+		"method": "delete",
+		"function": "delete:tests.ignitor.web.restapi_test.TModelWeb",
+		"content-type": "application/json",
+		"operation": "per1"
+	},
+	"gettm": {
+		"method": "get",
+		"function": "get:tests.ignitor.web.restapi_test.TModelWeb",
+		"content-type": "application/json",
+		"operation": "per1"
+	},
+	"fetchtm": {
+		"method": "get",
+		"function": "fetch:tests.ignitor.web.restapi_test.TModelWeb",
+		"content-type": "application/json",
+		"operation": "per1"
+	}
+}

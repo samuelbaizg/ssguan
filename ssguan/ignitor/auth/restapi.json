@@ -1,0 +1,16 @@
+{
+	"auth/signup": {
+		"method": "post",
+		"function": "ssguan.ignitor.auth.service.signup",
+		"content-type": "application/json",
+		"resource": "",
+		"operation": ""
+	},
+	"auth/updatepwd": {
+		"method": "post",
+		"function": "ssguan.ignitor.auth.service.update_user_password",
+		"content-type": "application/json",
+		"resource": "",
+		"operation": ""
+	}
+}
