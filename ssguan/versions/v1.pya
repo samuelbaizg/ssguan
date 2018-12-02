@@ -1,0 +1,9 @@
+from ssguan.commons.update import Version
+
+class V1(Version):
+    
+    def _upgrade(self):
+        """"""
+        
+    def _downgrade(self):
+        """"""
