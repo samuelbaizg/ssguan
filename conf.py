@@ -114,7 +114,7 @@ HANDLERs = (
 LANG_EN = "en"
 LANG_ZH_CN = "zh_CN"
 
-G_VERSION = "%s.%d" % ("1.12", 8)  # (app version, db version)
+G_VERSION = "%s.%d.%d" % ("1.12", 8, 1)  # (app version, db version)
 
 def get_web_config_debug():
     return False

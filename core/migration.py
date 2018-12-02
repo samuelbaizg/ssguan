@@ -40,7 +40,7 @@ def setup_db():
         try:
             dbutil.create_db(dbutil.get_master_dbinfo())
         except:
-            dbutil.drop_db(dbutil.get_master_dbinfo())
+            #dbutil.drop_db(dbutil.get_master_dbinfo())
             raise
     from core.model import Session
     try:
